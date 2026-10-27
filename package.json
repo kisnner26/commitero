@@ -1,0 +1,13 @@
+{
+  "name": "commitero",
+  "version": "0.1.0",
+  "description": "agrupa los cambios de un repositorio en commits atómicos, los deja revisar y los commitea",
+  "type": "module",
+  "bin": { "commitero": "bin/commitero.js" },
+  "scripts": {
+    "start": "node bin/commitero.js",
+    "test": "node --test test/"
+  },
+  "engines": { "node": ">=20" },
+  "license": "MIT"
+}
