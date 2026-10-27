@@ -12,6 +12,8 @@ test('clasifica por ruta', () => {
   assert.equal(kindOf('docs/ISLAND.md'), 'doc');
   assert.equal(kindOf('docs/img/hero.png'), 'asset');
   assert.equal(kindOf('package.json'), 'config');
+  assert.equal(kindOf('.env'), 'config');
+  assert.equal(kindOf('app/.env.local'), 'config');
   assert.equal(kindOf('node_modules/x/index.js'), 'ignorable');
   assert.equal(kindOf('.build/debug/App'), 'ignorable');
   assert.equal(kindOf('.DS_Store'), 'ignorable');
@@ -22,6 +24,7 @@ test('el nombre base quita los sufijos de prueba', () => {
   assert.equal(stemOf('test/foo.test.js'), 'foo');
   assert.equal(stemOf('src/foo_test.go'), 'foo');
   assert.equal(stemOf('Sources/Foo.swift'), 'Foo');
+  assert.equal(stemOf('.env'), '.env');
   assert.equal(humanize('SessionJournal'), 'session journal');
   assert.equal(humanize('cpu-script'), 'cpu script');
 });
