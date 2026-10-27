@@ -1,1 +1,27 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Commitero</title><meta name="commitero-token" content="__TOKEN__"></head><body><p>cargando…</p><script src="/app.js"></script></body></html>
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="commitero-token" content="__TOKEN__">
+<title>Commitero</title>
+<link rel="stylesheet" href="/app.css">
+</head>
+<body>
+<div class="veil" aria-hidden="true"></div>
+<header class="bar glass" role="banner">
+  <div class="brand"><span class="dot" aria-hidden="true"></span><strong>commitero</strong></div>
+  <div class="repo" id="repo" aria-live="polite"></div>
+  <div class="bar-actions">
+    <button class="circle" id="refresh" title="actualizar" aria-label="actualizar">↻</button>
+    <button class="capsule" id="open">abrir repo</button>
+  </div>
+</header>
+<main id="main" aria-live="polite"><p class="loading">cargando…</p></main>
+<footer class="dock glass" id="dock" hidden></footer>
+<dialog id="dialog"></dialog>
+<div class="toast glass" id="toast" role="status" hidden></div>
+<script type="module" src="/app.js"></script>
+</body>
+</html>
