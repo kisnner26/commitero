@@ -116,3 +116,13 @@ test('rechaza un cuerpo enorme', async () => {
     assert.ok(res.status === 413 || res.status === 'cerrado');
   } finally { await app.close(); r.cleanup(); }
 });
+
+test('valida mensajes con las mismas reglas que el commit', async () => {
+  const r = makeRepo(); const app = await startServer({ repos: [r.dir], port: 0 });
+  try {
+    const res = await request(app, { method: 'POST', path: '/api/validate', headers: auth(app), body: { messages: ['feat: añade a', '', 'fix: x\n\nCo-authored-by: alguien', 'sin prefijo'] } });
+    assert.equal(res.status, 200);
+    assert.deepEqual(res.json.results.map((x) => x.ok), [true, false, false, true]);
+    assert.ok(res.json.results[3].warnings.some((w) => /prefijo/.test(w)));
+  } finally { await app.close(); r.cleanup(); }
+});

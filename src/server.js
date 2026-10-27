@@ -7,6 +7,7 @@ import { dirname, join } from 'node:path';
 import { buildState } from './state.js';
 import { repoRoot, changes, diffFor } from './git.js';
 import { applyPlan, undoBatch, push } from './commit.js';
+import { validateMessage } from './message.js';
 
 const PUBLIC = join(dirname(fileURLToPath(import.meta.url)), '..', 'public');
 const STATIC = { '/': ['index.html', 'text/html; charset=utf-8'], '/app.css': ['app.css', 'text/css; charset=utf-8'], '/app.js': ['app.js', 'text/javascript; charset=utf-8'] };
@@ -80,6 +81,11 @@ export async function startServer({ repos = [], port = 4747 } = {}) {
         if (!root) return json(res, 400, { error: 'esa carpeta no es un repositorio de git' });
         allowed.add(root);
         return json(res, 200, await buildState(root));
+      }
+      if (req.method === 'POST' && url.pathname === '/api/validate') {
+        const body = await readBody(req);
+        const messages = Array.isArray(body.messages) ? body.messages.slice(0, 200).map(String) : [];
+        return json(res, 200, { results: messages.map((m) => validateMessage(m)) });
       }
       if (req.method === 'POST' && url.pathname === '/api/commit') {
         const body = await readBody(req);
